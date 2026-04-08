@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<!-- saved from url=(0036)https://alibaba.github.io/fastjson2/ -->
+<html lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,maximum-scale=2">
+    <link rel="stylesheet" type="text/css" media="screen" href="./FASTJSON 2.0介绍 _ fastjson2_files/style.css">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>FASTJSON 2.0介绍 | fastjson2</title>
+<meta name="generator" content="Jekyll v3.9.3">
+<meta property="og:title" content="FASTJSON 2.0介绍">
+<meta property="og:locale" content="en_US">
+<meta name="description" content="🚄 FASTJSON2 is a Java JSON library with excellent performance.">
+<meta property="og:description" content="🚄 FASTJSON2 is a Java JSON library with excellent performance.">
+<link rel="canonical" href="https://alibaba.github.io/fastjson2/">
+<meta property="og:url" content="https://alibaba.github.io/fastjson2/">
+<meta property="og:site_name" content="fastjson2">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<meta property="twitter:title" content="FASTJSON 2.0介绍">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebSite","description":"🚄 FASTJSON2 is a Java JSON library with excellent performance.","headline":"FASTJSON 2.0介绍","name":"fastjson2","url":"https://alibaba.github.io/fastjson2/"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/fastjson2/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          
+            <a id="forkme_banner" href="https://github.com/alibaba/fastjson2">View on GitHub</a>
+          
+
+          <h1 id="project_title">fastjson2</h1>
+          <h2 id="project_tagline">🚄 FASTJSON2 is a Java JSON  library with excellent performance.</h2>
+
+          
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1 id="0-fastjson-20介绍">0. FASTJSON 2.0介绍</h1>
+
+<p><code class="language-plaintext highlighter-rouge">FASTJSON v2</code>是<code class="language-plaintext highlighter-rouge">FASTJSON</code>项目的重要升级，目标是为下一个十年提供一个高性能的<code class="language-plaintext highlighter-rouge">JSON</code>库。通过同一套<code class="language-plaintext highlighter-rouge">API</code>，</p>
+
+<ul>
+  <li>支持<code class="language-plaintext highlighter-rouge">JSON/JSONB</code>两种协议，<a href="https://alibaba.github.io/fastjson2/jsonpath_cn"><code class="language-plaintext highlighter-rouge">JSONPath</code></a> 是一等公民。</li>
+  <li>支持全量解析和部分解析。</li>
+  <li>支持<code class="language-plaintext highlighter-rouge">Java</code>服务端、客户端<code class="language-plaintext highlighter-rouge">Android</code>、大数据场景。</li>
+  <li>支持<code class="language-plaintext highlighter-rouge">Kotlin</code></li>
+  <li>支持<code class="language-plaintext highlighter-rouge">JSON Schema</code> <a href="https://alibaba.github.io/fastjson2/json_schema_cn">https://alibaba.github.io/fastjson2/json_schema_cn</a></li>
+  <li>支持<code class="language-plaintext highlighter-rouge">Android</code></li>
+  <li>支持<code class="language-plaintext highlighter-rouge">Graal Native-Image</code></li>
+</ul>
+
+<p><img src="./FASTJSON 2.0介绍 _ fastjson2_files/logo.jpg" alt="fastjson" title="fastjson"></p>
+
+<p>相关文档：</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">JSONB</code>格式文档：<br>
+<a href="https://alibaba.github.io/fastjson2/jsonb_format_cn">https://alibaba.github.io/fastjson2/jsonb_format_cn</a></li>
+  <li><code class="language-plaintext highlighter-rouge">FASTJSON v2</code>性能有了很大提升，具体性能数据看这里：<br>
+<a href="https://alibaba.github.io/fastjson2/benchmark_cn">https://alibaba.github.io/fastjson2/benchmark_cn</a></li>
+</ul>
+
+<h1 id="1-使用准备">1. 使用准备</h1>
+
+<h2 id="11-添加依赖">1.1 添加依赖</h2>
+
+<p>在<code class="language-plaintext highlighter-rouge">fastjson v2</code>中，<code class="language-plaintext highlighter-rouge">groupId</code>和<code class="language-plaintext highlighter-rouge">1.x</code>不一样，是<code class="language-plaintext highlighter-rouge">com.alibaba.fastjson2</code>：</p>
+
+<p><code class="language-plaintext highlighter-rouge">Maven</code>:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>com.alibaba.fastjson2<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>fastjson2<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;version&gt;</span>2.0.42<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">Gradle</code>:</p>
+
+<div class="language-groovy highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">dependencies</span> <span class="o">{</span>
+    <span class="n">implementation</span> <span class="s1">'com.alibaba.fastjson2:fastjson2:2.0.42'</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>可以在 <a href="https://search.maven.org/artifact/com.alibaba.fastjson2/fastjson2">maven.org</a> 查看最新可用的版本。</p>
+
+<h2 id="12-其他模块">1.2 其他模块</h2>
+
+<h3 id="fastjson-v1兼容模块"><code class="language-plaintext highlighter-rouge">Fastjson v1</code>兼容模块</h3>
+
+<p>如果原来使用<code class="language-plaintext highlighter-rouge">fastjson 1.2.x</code>版本，可以使用兼容包，兼容包不能保证100%兼容，请仔细测试验证，发现问题请及时反馈。</p>
+
+<p><code class="language-plaintext highlighter-rouge">Maven</code>:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>com.alibaba<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>fastjson<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;version&gt;</span>2.0.42<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">Gradle</code>:</p>
+
+<div class="language-groovy highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">dependencies</span> <span class="o">{</span>
+    <span class="n">implementation</span> <span class="s1">'com.alibaba:fastjson:2.0.42'</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="fastjson-kotlin集成模块"><code class="language-plaintext highlighter-rouge">Fastjson Kotlin</code>集成模块</h3>
+
+<p>如果项目使用<code class="language-plaintext highlighter-rouge">Kotlin</code>，可以使用<code class="language-plaintext highlighter-rouge">fastjson-kotlin</code>模块，使用方式上采用<code class="language-plaintext highlighter-rouge">kotlin</code>的特性。</p>
+
+<p><code class="language-plaintext highlighter-rouge">Maven</code>:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>com.alibaba.fastjson2<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>fastjson2-kotlin<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;version&gt;</span>2.0.42<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">Gradle</code>:</p>
+
+<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">dependencies</span> <span class="p">{</span>
+    <span class="nf">implementation</span><span class="p">(</span><span class="s">"com.alibaba.fastjson2:fastjson2-kotlin:2.0.42"</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="fastjson-extension扩展模块"><code class="language-plaintext highlighter-rouge">Fastjson Extension</code>扩展模块</h3>
+
+<p>如果项目使用<code class="language-plaintext highlighter-rouge">SpringFramework</code>等框架，可以使用<code class="language-plaintext highlighter-rouge">fastjson-extension</code>模块，使用方式参考 <a href="https://alibaba.github.io/fastjson2/spring_support_cn">SpringFramework Support</a>。</p>
+
+<p><code class="language-plaintext highlighter-rouge">Maven</code>:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>com.alibaba.fastjson2<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>fastjson2-extension<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;version&gt;</span>2.0.42<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">Gradle</code>:</p>
+
+<div class="language-groovy highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">dependencies</span> <span class="o">{</span>
+    <span class="n">implementation</span> <span class="s1">'com.alibaba.fastjson2:fastjson2-extension:2.0.42'</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h1 id="2-简单使用">2 简单使用</h1>
+
+<p>在<code class="language-plaintext highlighter-rouge">fastjson v2</code>中，<code class="language-plaintext highlighter-rouge">package</code>和<code class="language-plaintext highlighter-rouge">1.x</code>不一样，是<code class="language-plaintext highlighter-rouge">com.alibaba.fastjson2</code>。如果你之前用的是<code class="language-plaintext highlighter-rouge">fastjson1</code>，大多数情况直接更包名就即可。</p>
+
+<h3 id="21-将json解析为jsonobject">2.1 将<code class="language-plaintext highlighter-rouge">JSON</code>解析为<code class="language-plaintext highlighter-rouge">JSONObject</code></h3>
+
+<p><code class="language-plaintext highlighter-rouge">Java</code>:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">String</span> <span class="n">text</span> <span class="o">=</span> <span class="s">"..."</span><span class="o">;</span>
+<span class="nc">JSONObject</span> <span class="n">data</span> <span class="o">=</span> <span class="no">JSON</span><span class="o">.</span><span class="na">parseObject</span><span class="o">(</span><span class="n">text</span><span class="o">);</span>
+
+<span class="kt">byte</span><span class="o">[]</span> <span class="n">bytes</span> <span class="o">=</span> <span class="o">...;</span>
+<span class="nc">JSONObject</span> <span class="n">data</span> <span class="o">=</span> <span class="no">JSON</span><span class="o">.</span><span class="na">parseObject</span><span class="o">(</span><span class="n">bytes</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">Kotlin</code>:</p>
+
+<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">com.alibaba.fastjson2.*</span>
+
+<span class="kd">val</span> <span class="py">text</span> <span class="p">=</span> <span class="o">..</span><span class="p">.</span> <span class="c1">// String</span>
+<span class="kd">val</span> <span class="py">data</span> <span class="p">=</span> <span class="n">text</span><span class="p">.</span><span class="nf">parseObject</span><span class="p">()</span>
+
+<span class="kd">val</span> <span class="py">bytes</span> <span class="p">=</span> <span class="o">..</span><span class="p">.</span> <span class="c1">// ByteArray</span>
+<span class="kd">val</span> <span class="py">data</span> <span class="p">=</span> <span class="n">bytes</span><span class="p">.</span><span class="nf">parseObject</span><span class="p">()</span> <span class="c1">// JSONObject</span>
+</code></pre></div></div>
+
+<h3 id="22-将json解析为jsonarray">2.2 将<code class="language-plaintext highlighter-rouge">JSON</code>解析为<code class="language-plaintext highlighter-rouge">JSONArray</code></h3>
+
+<p><code class="language-plaintext highlighter-rouge">Java</code>:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">String</span> <span class="n">text</span> <span class="o">=</span> <span class="s">"..."</span><span class="o">;</span>
+<span class="nc">JSONArray</span> <span class="n">data</span> <span class="o">=</span> <span class="no">JSON</span><span class="o">.</span><span class="na">parseArray</span><span class="o">(</span><span class="n">text</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">Kotlin</code>:</p>
+
+<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">com.alibaba.fastjson2.*</span>
+
+<span class="kd">val</span> <span class="py">text</span> <span class="p">=</span> <span class="o">..</span><span class="p">.</span> <span class="c1">// String</span>
+<span class="kd">val</span> <span class="py">data</span> <span class="p">=</span> <span class="n">text</span><span class="p">.</span><span class="nf">parseArray</span><span class="p">()</span> <span class="c1">// JSONArray</span>
+</code></pre></div></div>
+
+<h3 id="23-将json解析为java对象">2.3 将<code class="language-plaintext highlighter-rouge">JSON</code>解析为<code class="language-plaintext highlighter-rouge">Java</code>对象</h3>
+
+<p><code class="language-plaintext highlighter-rouge">Java</code>:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">String</span> <span class="n">text</span> <span class="o">=</span> <span class="s">"..."</span><span class="o">;</span>
+<span class="nc">User</span> <span class="n">data</span> <span class="o">=</span> <span class="no">JSON</span><span class="o">.</span><span class="na">parseObject</span><span class="o">(</span><span class="n">text</span><span class="o">,</span> <span class="nc">User</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">Kotlin</code>:</p>
+
+<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">com.alibaba.fastjson2.*</span>
+
+<span class="kd">val</span> <span class="py">text</span> <span class="p">=</span> <span class="o">..</span><span class="p">.</span> <span class="c1">// String</span>
+<span class="kd">val</span> <span class="py">data</span> <span class="p">=</span> <span class="n">text</span><span class="p">.</span><span class="n">to</span><span class="p">&lt;</span><span class="nc">User</span><span class="p">&gt;()</span> <span class="c1">// User</span>
+<span class="kd">val</span> <span class="py">data</span> <span class="p">=</span> <span class="n">text</span><span class="p">.</span><span class="n">parseObject</span><span class="p">&lt;</span><span class="nc">User</span><span class="p">&gt;()</span> <span class="c1">// User</span>
+</code></pre></div></div>
+
+<h3 id="24-将java对象序列化为json">2.4 将<code class="language-plaintext highlighter-rouge">Java</code>对象序列化为<code class="language-plaintext highlighter-rouge">JSON</code></h3>
+
+<p><code class="language-plaintext highlighter-rouge">Java</code>:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Object</span> <span class="n">data</span> <span class="o">=</span> <span class="s">"..."</span><span class="o">;</span>
+<span class="nc">String</span> <span class="n">text</span> <span class="o">=</span> <span class="no">JSON</span><span class="o">.</span><span class="na">toJSONString</span><span class="o">(</span><span class="n">data</span><span class="o">);</span>
+<span class="kt">byte</span><span class="o">[]</span> <span class="n">text</span> <span class="o">=</span> <span class="no">JSON</span><span class="o">.</span><span class="na">toJSONBytes</span><span class="o">(</span><span class="n">data</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">Kotlin</code>:</p>
+
+<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">com.alibaba.fastjson2.*</span>
+
+<span class="kd">val</span> <span class="py">data</span> <span class="p">=</span> <span class="o">..</span><span class="p">.</span> <span class="c1">// Any</span>
+<span class="kd">val</span> <span class="py">text</span> <span class="p">=</span> <span class="n">text</span><span class="p">.</span><span class="nf">toJSONString</span><span class="p">()</span> <span class="c1">// String</span>
+<span class="kd">val</span> <span class="py">bytes</span> <span class="p">=</span> <span class="n">text</span><span class="p">.</span><span class="nf">toJSONByteArray</span><span class="p">()</span> <span class="c1">// ByteArray</span>
+</code></pre></div></div>
+
+<h3 id="25-使用jsonobjectjsonarray">2.5 使用<code class="language-plaintext highlighter-rouge">JSONObject</code>、<code class="language-plaintext highlighter-rouge">JSONArray</code></h3>
+
+<h4 id="251-获取简单属性">2.5.1 获取简单属性</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">String</span> <span class="n">text</span> <span class="o">=</span> <span class="s">"{\"id\": 2,\"name\": \"fastjson2\"}"</span><span class="o">;</span>
+<span class="nc">JSONObject</span> <span class="n">obj</span> <span class="o">=</span> <span class="no">JSON</span><span class="o">.</span><span class="na">parseObject</span><span class="o">(</span><span class="n">text</span><span class="o">);</span>
+
+<span class="kt">int</span> <span class="n">id</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="na">getIntValue</span><span class="o">(</span><span class="s">"id"</span><span class="o">);</span>
+<span class="nc">String</span> <span class="n">name</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="na">getString</span><span class="o">(</span><span class="s">"name"</span><span class="o">);</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">String</span> <span class="n">text</span> <span class="o">=</span> <span class="s">"[2, \"fastjson2\"]"</span><span class="o">;</span>
+<span class="nc">JSONArray</span> <span class="n">array</span> <span class="o">=</span> <span class="no">JSON</span><span class="o">.</span><span class="na">parseArray</span><span class="o">(</span><span class="n">text</span><span class="o">);</span>
+
+<span class="kt">int</span> <span class="n">id</span> <span class="o">=</span> <span class="n">array</span><span class="o">.</span><span class="na">getIntValue</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
+<span class="nc">String</span> <span class="n">name</span> <span class="o">=</span> <span class="n">array</span><span class="o">.</span><span class="na">getString</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span>
+</code></pre></div></div>
+
+<h4 id="252-读取javabean">2.5.2 读取<code class="language-plaintext highlighter-rouge">JavaBean</code></h4>
+
+<p><code class="language-plaintext highlighter-rouge">Java</code>:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">JSONArray</span> <span class="n">array</span> <span class="o">=</span> <span class="o">...</span>
+<span class="nc">JSONObject</span> <span class="n">obj</span> <span class="o">=</span> <span class="o">...</span>
+
+<span class="nc">User</span> <span class="n">user</span> <span class="o">=</span> <span class="n">array</span><span class="o">.</span><span class="na">getObject</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="nc">User</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+<span class="nc">User</span> <span class="n">user</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="na">getObject</span><span class="o">(</span><span class="s">"key"</span><span class="o">,</span> <span class="nc">User</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">Kotlin</code>:</p>
+
+<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">val</span> <span class="py">array</span> <span class="p">=</span> <span class="o">..</span><span class="p">.</span> <span class="c1">// JSONArray</span>
+<span class="kd">val</span> <span class="py">obj</span> <span class="p">=</span> <span class="o">..</span><span class="p">.</span> <span class="c1">// JSONObject</span>
+
+<span class="kd">val</span> <span class="py">user</span> <span class="p">=</span> <span class="n">array</span><span class="p">.</span><span class="n">getObject</span><span class="p">&lt;</span><span class="nc">User</span><span class="p">&gt;(</span><span class="mi">0</span><span class="p">)</span>
+<span class="kd">val</span> <span class="py">user</span> <span class="p">=</span> <span class="n">obj</span><span class="p">.</span><span class="n">getObject</span><span class="p">&lt;</span><span class="nc">User</span><span class="p">&gt;(</span><span class="s">"key"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h4 id="253-转为javabean">2.5.3 转为<code class="language-plaintext highlighter-rouge">JavaBean</code></h4>
+
+<p><code class="language-plaintext highlighter-rouge">Java</code>:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">JSONArray</span> <span class="n">array</span> <span class="o">=</span> <span class="o">...</span>
+<span class="nc">JSONObject</span> <span class="n">obj</span> <span class="o">=</span> <span class="o">...</span>
+
+<span class="nc">User</span> <span class="n">user</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="na">toJavaObject</span><span class="o">(</span><span class="nc">User</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+<span class="nc">List</span><span class="o">&lt;</span><span class="nc">User</span><span class="o">&gt;</span> <span class="n">users</span> <span class="o">=</span> <span class="n">array</span><span class="o">.</span><span class="na">toJavaList</span><span class="o">(</span><span class="nc">User</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">Kotlin</code>:</p>
+
+<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">val</span> <span class="py">array</span> <span class="p">=</span> <span class="o">..</span><span class="p">.</span> <span class="c1">// JSONArray</span>
+<span class="kd">val</span> <span class="py">obj</span> <span class="p">=</span> <span class="o">..</span><span class="p">.</span> <span class="c1">// JSONObject</span>
+
+<span class="kd">val</span> <span class="py">user</span> <span class="p">=</span> <span class="n">obj</span><span class="p">.</span><span class="n">toObject</span><span class="p">&lt;</span><span class="nc">User</span><span class="p">&gt;()</span> <span class="c1">// User</span>
+<span class="kd">val</span> <span class="py">users</span> <span class="p">=</span> <span class="n">array</span><span class="p">.</span><span class="n">toList</span><span class="p">&lt;</span><span class="nc">User</span><span class="p">&gt;()</span> <span class="c1">// List&lt;User&gt;</span>
+</code></pre></div></div>
+
+<h3 id="26-将javabean对象序列化为json">2.6 将<code class="language-plaintext highlighter-rouge">JavaBean</code>对象序列化为<code class="language-plaintext highlighter-rouge">JSON</code></h3>
+
+<p><code class="language-plaintext highlighter-rouge">Java</code>:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">User</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="n">id</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="nc">String</span> <span class="n">name</span><span class="o">;</span>
+<span class="o">}</span>
+
+<span class="nc">User</span> <span class="n">user</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">User</span><span class="o">();</span>
+<span class="n">user</span><span class="o">.</span><span class="na">id</span> <span class="o">=</span> <span class="mi">2</span><span class="o">;</span>
+<span class="n">user</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="s">"FastJson2"</span><span class="o">;</span>
+
+<span class="nc">String</span> <span class="n">text</span> <span class="o">=</span> <span class="no">JSON</span><span class="o">.</span><span class="na">toJSONString</span><span class="o">(</span><span class="n">user</span><span class="o">);</span>
+<span class="kt">byte</span><span class="o">[]</span> <span class="n">bytes</span> <span class="o">=</span> <span class="no">JSON</span><span class="o">.</span><span class="na">toJSONBytes</span><span class="o">(</span><span class="n">user</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">Kotlin</code>:</p>
+
+<div class="language-kotlin highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">User</span><span class="p">(</span>
+    <span class="kd">var</span> <span class="py">id</span><span class="p">:</span> <span class="nc">Int</span><span class="p">,</span>
+    <span class="kd">var</span> <span class="py">name</span><span class="p">:</span> <span class="nc">String</span>
+<span class="p">)</span>
+
+<span class="kd">val</span> <span class="py">user</span> <span class="p">=</span> <span class="nc">User</span><span class="p">()</span>
+<span class="n">user</span><span class="p">.</span><span class="n">id</span> <span class="p">=</span> <span class="mi">2</span>
+<span class="n">user</span><span class="p">.</span><span class="n">name</span> <span class="p">=</span> <span class="s">"FastJson2"</span>
+
+<span class="kd">val</span> <span class="py">text</span> <span class="p">=</span> <span class="n">user</span><span class="p">.</span><span class="nf">toJSONString</span><span class="p">()</span> <span class="c1">// String</span>
+<span class="kd">val</span> <span class="py">bytes</span> <span class="p">=</span> <span class="n">user</span><span class="p">.</span><span class="nf">toJSONByteArray</span><span class="p">()</span> <span class="c1">// ByteArray</span>
+</code></pre></div></div>
+
+<p>序列化结果:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"id"</span><span class="w">   </span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"FastJson2"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<h1 id="3-进阶使用">3. 进阶使用</h1>
+
+<h3 id="31-使用jsonb">3.1 使用<code class="language-plaintext highlighter-rouge">JSONB</code></h3>
+
+<h4 id="311-将javabean对象序列化jsonb">3.1.1 将<code class="language-plaintext highlighter-rouge">JavaBean</code>对象序列化<code class="language-plaintext highlighter-rouge">JSONB</code></h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">User</span> <span class="n">user</span> <span class="o">=</span> <span class="o">...;</span>
+<span class="kt">byte</span><span class="o">[]</span> <span class="n">bytes</span> <span class="o">=</span> <span class="no">JSONB</span><span class="o">.</span><span class="na">toBytes</span><span class="o">(</span><span class="n">user</span><span class="o">);</span>
+<span class="kt">byte</span><span class="o">[]</span> <span class="n">bytes</span> <span class="o">=</span> <span class="no">JSONB</span><span class="o">.</span><span class="na">toBytes</span><span class="o">(</span><span class="n">user</span><span class="o">,</span> <span class="nc">JSONWriter</span><span class="o">.</span><span class="na">Feature</span><span class="o">.</span><span class="na">BeanToArray</span><span class="o">);</span>
+</code></pre></div></div>
+
+<h4 id="312-将jsonb数据解析为javabean">3.1.2 将<code class="language-plaintext highlighter-rouge">JSONB</code>数据解析为<code class="language-plaintext highlighter-rouge">JavaBean</code></h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">byte</span><span class="o">[]</span> <span class="n">bytes</span> <span class="o">=</span> <span class="o">...</span>
+<span class="nc">User</span> <span class="n">user</span> <span class="o">=</span> <span class="no">JSONB</span><span class="o">.</span><span class="na">parseObject</span><span class="o">(</span><span class="n">bytes</span><span class="o">,</span> <span class="nc">User</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+<span class="nc">User</span> <span class="n">user</span> <span class="o">=</span> <span class="no">JSONB</span><span class="o">.</span><span class="na">parseObject</span><span class="o">(</span><span class="n">bytes</span><span class="o">,</span> <span class="nc">User</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="nc">JSONReader</span><span class="o">.</span><span class="na">Feature</span><span class="o">.</span><span class="na">SupportBeanArrayMapping</span><span class="o">);</span>
+</code></pre></div></div>
+
+<h3 id="32-使用jsonpath">3.2 使用<code class="language-plaintext highlighter-rouge">JSONPath</code></h3>
+
+<h4 id="321-使用jsonpath读取部分数据">3.2.1 使用<code class="language-plaintext highlighter-rouge">JSONPath</code>读取部分数据</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">String</span> <span class="n">text</span> <span class="o">=</span> <span class="o">...;</span>
+<span class="nc">JSONPath</span> <span class="n">path</span> <span class="o">=</span> <span class="nc">JSONPath</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">"$.id"</span><span class="o">);</span> <span class="c1">// 缓存起来重复使用能提升性能</span>
+
+<span class="nc">JSONReader</span> <span class="n">parser</span> <span class="o">=</span> <span class="nc">JSONReader</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">text</span><span class="o">);</span>
+<span class="nc">Object</span> <span class="n">result</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="na">extract</span><span class="o">(</span><span class="n">parser</span><span class="o">);</span>
+</code></pre></div></div>
+
+<h4 id="322-使用jsonpath读取部分byte的数据">3.2.2 使用<code class="language-plaintext highlighter-rouge">JSONPath</code>读取部分<code class="language-plaintext highlighter-rouge">byte[]</code>的数据</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">byte</span><span class="o">[]</span> <span class="n">bytes</span> <span class="o">=</span> <span class="o">...;</span>
+<span class="nc">JSONPath</span> <span class="n">path</span> <span class="o">=</span> <span class="nc">JSONPath</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">"$.id"</span><span class="o">);</span> <span class="c1">// 缓存起来重复使用能提升性能</span>
+
+<span class="nc">JSONReader</span> <span class="n">parser</span> <span class="o">=</span> <span class="nc">JSONReader</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">bytes</span><span class="o">);</span>
+<span class="nc">Object</span> <span class="n">result</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="na">extract</span><span class="o">(</span><span class="n">parser</span><span class="o">);</span>
+</code></pre></div></div>
+
+<h4 id="323-使用jsonpath读取部分byte的数据">3.2.3 使用<code class="language-plaintext highlighter-rouge">JSONPath</code>读取部分<code class="language-plaintext highlighter-rouge">byte[]</code>的数据</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">byte</span><span class="o">[]</span> <span class="n">bytes</span> <span class="o">=</span> <span class="o">...;</span>
+<span class="nc">JSONPath</span> <span class="n">path</span> <span class="o">=</span> <span class="nc">JSONPath</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">"$.id"</span><span class="o">);</span> <span class="c1">// 缓存起来重复使用能提升性能</span>
+
+<span class="nc">JSONReader</span> <span class="n">parser</span> <span class="o">=</span> <span class="nc">JSONReader</span><span class="o">.</span><span class="na">ofJSONB</span><span class="o">(</span><span class="n">bytes</span><span class="o">);</span> <span class="c1">// 注意这里使用ofJSONB方法</span>
+<span class="nc">Object</span> <span class="n">result</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="na">extract</span><span class="o">(</span><span class="n">parser</span><span class="o">);</span>
+</code></pre></div></div>
+
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        
+        <p class="copyright">fastjson2 maintained by <a href="https://github.com/alibaba">alibaba</a></p>
+        
+        <p>Published with <a href="https://pages.github.com/">GitHub Pages</a></p>
+      </footer>
+    </div>
+  
+
+</body></html>

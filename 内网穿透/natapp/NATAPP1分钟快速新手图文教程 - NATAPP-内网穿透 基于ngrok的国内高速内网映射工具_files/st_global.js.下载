@@ -1,0 +1,116 @@
+$(function () {
+    //图形验证码
+    $('.captchaImg').click(function () {
+        var img = $(this).find('img').attr('src');
+        img = img + '?timestamp=' + (new Date()).valueOf();
+        $(this).find('img').attr('src', img);
+    });
+
+    //iframe modal 弹窗
+    //$("#iframeModal").modal(options);
+
+    $('a.iframe').click(function () {
+        var iframe = $("#iframeModal").find('iframe');
+        url = $(this).attr('href');
+        url = addTimestamp(url);//防止缓存
+
+
+        // Send the src on click of button to the iframe. Which will make it load.
+        iframe.attr("src", url);
+        $('#iframeModal').modal({show: true});
+        // Hide the loading message
+        iframe.load(function () {
+
+            $('.loading').hide();
+            $(".modal-content").height($(this).contents().height());
+            //$(this).show();
+        });
+
+        return false;
+    })
+    $('#iframeModal').on('hidden.bs.modal', function (e) {
+        $('.loading').show();
+        $(".modal-content").height('');
+        //  $(this).find('iframe').hide();
+        //$(this).find('iframe').document.clear();
+        var iframeEl = $(this).find('iframe')[0];
+        iframeEl.contentWindow.document.write('');//清空iframe的内容
+        iframeEl.contentWindow.close();//避免iframe内存泄漏
+    })
+
+    //阻止二次提交表单
+    $("form:not(.skipSubmitLoading)").submit(function () {
+        var button = $(this).find(':submit');
+        if (isEmpty($(button).attr('data-loading-text'))) {
+            $(button).attr('data-loading-text', '<i class="fa fa-refresh fa-spin"></i> Loading...');
+        }
+        $(button).button('loading');
+
+        return true;
+    });
+
+
+    //点击复制
+
+
+    var clip = new ClipboardJS(".clickCopy");
+    clip.on('success', function (e) {
+        bootbox.alert('已成功复制到粘贴板');
+    });
+
+
+    /**
+     * bootstrap iframe tabs
+     */
+
+    $('.tabs.iframe .nav a').click(function (e) {
+        e.preventDefault();
+        $(this).tab('show');
+        var url = $(this).data('url');
+
+        loadTabIframe(url);
+        location.hash = $(this).attr("href");
+        return false;
+    });
+
+    var loadTabIframe = function (url) {
+
+        var iframePanel = $('.tabs.iframe .tab-pane');
+        //清空原有 iframe,目的在于清空 事件等
+        iframePanel.html('<iframe src="" id="tab-iframe" frameborder="0"  width="100%"  height="100%"  scrolling="no"  frameborder="0" marginheight="0" marginwidth="0"></iframe>');
+        var iframe = iframePanel.find('iframe');
+
+        url = addTimestamp(url);//防止缓存
+        iframe.attr("src", url);
+
+        // Hide the loading message
+        iframe.load(function () {
+
+            var mainheight = $(this).contents().find("body").height() + 30;
+            $(this).height(mainheight);
+        });
+
+    }
+    if (!isEmpty(location.hash)) {
+        //
+        var foundTab = $('.tabs.iframe li').find('a[href=' + location.hash + ']');
+        if (!isEmpty(foundTab)) {
+            foundTab.tab('show');
+            loadTabIframe(foundTab.data('url'));
+        }
+    } else {
+        //默认load active的 url
+        if ($('.tabs.iframe li').first().length == 1) {
+            $('.tabs.iframe li').first().tab('show');
+            loadTabIframe($('.tabs.iframe li').first().find('a').data('url'));
+        }
+
+
+        if ($('.tabs.iframe li.active').length == 1) {
+
+            loadTabIframe($('.tabs.iframe li.active').find('a').data('url'));
+        }
+    }
+});
+
+

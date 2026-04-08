@@ -1,0 +1,109 @@
+/**
+ 判断变量是否空值undefined, null, '', false, 0, [], {} 均返回true，否则返回false
+ */
+function isEmpty(v) {
+
+
+    switch (typeof v) {
+        case 'undefined' :
+            return true;
+        case 'string' :
+            if ($.trim(v).length == 0) return true;
+            break;
+        case 'boolean' :
+            if (!v) return true;
+            break;
+        case 'number' :
+            if(isNaN(v)){
+                return true;
+            }
+            if (0 === v) return true;
+            break;
+        case 'object' :
+            if (null === v) return true;
+            if (undefined !== v.length && v.length == 0) return true;
+            for (var k in v) {
+                return false;
+            }
+            return true;
+            break;
+    }
+    return false;
+}
+
+function in_array(search, array) {
+    for (var i in array) {
+        if (array[i] == search) {
+            return true;
+        }
+    }
+    return false;
+}
+
+function implode(glue, pieces) {
+    // *     example 1: implode(' ', ['Kevin', 'van', 'Zonneveld']);
+    // *     returns 1: 'Kevin van Zonneveld'
+    // *     example 2: implode(' ', {first:'Kevin', last: 'van Zonneveld'});
+    // *     returns 2: 'Kevin van Zonneveld'
+
+    var i = '', retVal = '', tGlue = '';
+    if (arguments.length === 1) {
+        pieces = glue;
+        glue = '';
+    }
+    if (typeof(pieces) === 'object') {
+        if (pieces instanceof Array) {
+            return pieces.join(glue);
+        }
+        else {
+            for (i in pieces) {
+                retVal += tGlue + pieces[i];
+                tGlue = glue;
+            }
+            return retVal;
+        }
+    }
+    else {
+        return pieces;
+    }
+}
+/**
+ * url 自动加时间戳,防止缓存
+ * @param url
+ */
+function addTimestamp(url) {
+
+    if (url.indexOf('?') != -1) {
+        url = url + '&timestamp=' + (new Date()).valueOf();
+    } else {
+        url = url + '?timestamp=' + (new Date()).valueOf();
+    }
+
+    return url;
+}
+
+/**
+ * 去除千分位中的‘，’
+ * @param num
+ * @returns string
+ */
+function delcommafy(num){
+    num=num.replace(/,/gi,'');
+    return num;
+
+}
+
+function html_encode(str)
+{
+    var s = "";
+    if (str.length == 0) return "";
+    s = str.replace(/&/g, "&gt;");
+    s = s.replace(/</g, "&lt;");
+    s = s.replace(/>/g, "&gt;");
+    s = s.replace(/ /g, "&nbsp;");
+    s = s.replace(/\'/g, "&#39;");
+    s = s.replace(/\"/g, "&quot;");
+    s = s.replace(/\n/g, "<br>");
+    return s;
+}
+
